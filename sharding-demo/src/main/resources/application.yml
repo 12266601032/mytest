@@ -1,0 +1,11 @@
+### mvn clean package -Dmaven.test.skip=true -P prod
+spring:
+  application:
+    name: ytjh-admin
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+### profile end
+    ### 如果不设置时区会导致转换的时间不正确
