@@ -37,7 +37,6 @@ public class SpringCloudRibbonClientApplication {
         registrationBean.setLoadOnStartup(1);
         registrationBean.addUrlMappings("/hystrix.stream");
         registrationBean.setName("HystrixMetricsStreamServlet");
-        registrationBean.setName("HystrixMetricsStreamServlet");
         return registrationBean;
 
     }
