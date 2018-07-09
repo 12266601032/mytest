@@ -1,0 +1,45 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>基地管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+</head>
+<body style="padding: 0px;margin: 0px;">
+
+<script
+  src="http://code.jquery.com/jquery-1.12.4.js"
+  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+  crossorigin="anonymous"></script>
+	<script>
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/item/list.do",
+			  
+		  xhrFields: {  
+			withCredentials: true // 设置运行跨域操作  
+		  },
+            contentType: "application/json; charset=utf-8",
+			beforeSend: function(request){
+				request.setRequestHeader("token", "xxxx");
+			},
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                if(data.status == "0"){
+                   alert(data.result);
+                }else{
+                   alert(data);
+                }
+            },
+            error: function (message) {
+                alert(message);
+            }
+        });
+
+	</script>
+
+</body>
+</html>
