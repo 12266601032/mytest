@@ -23,6 +23,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -76,10 +78,25 @@ public class MockTest {
         } catch (Exception e) {
             assertTrue(e instanceof ConstraintViolationException);
         }
+
         doReturn(true)
                 .when(mockUserService)
                 .updatePassword(anyString(), anyString());
         assertTrue(userService.updatePassword("adbc", "1234567", "abc"));
+    }
+
+
+    @Test
+    public void testIntervalMills(){
+        try {
+            userService.setTime(new Date(System.currentTimeMillis() - 1500));
+            fail();
+        } catch (Exception e) {
+            assertTrue(e instanceof ConstraintViolationException);
+            printViolationsMessages((ConstraintViolationException) e);
+        }
+
+        userService.setTime(new Date());
     }
 
     private void printViolationsMessages(ConstraintViolationException cve) {

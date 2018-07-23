@@ -42,6 +42,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Constraint(validatedBy = { })
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
+@ReportAsSingleViolation
 @Retention(RUNTIME)
 @NotNull
 @Length
