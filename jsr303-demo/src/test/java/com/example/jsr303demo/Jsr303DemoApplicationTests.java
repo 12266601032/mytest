@@ -2,33 +2,29 @@ package com.example.jsr303demo;
 
 import com.example.jsr303demo.controller.UserController;
 import com.example.jsr303demo.service.MockUserService;
-import com.example.jsr303demo.service.UserService;
 import org.junit.Test;
+import org.junit.runner.Description;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
+import org.junit.runner.notification.RunListener;
+import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.model.InitializationError;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.properties.PropertyMapping;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.MockBeans;
-import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
@@ -58,8 +54,6 @@ public class Jsr303DemoApplicationTests {
     @Autowired
     MockUserService mockUserService;
 
-    @Autowired
-    UserService userService;
 
 
     @Test
@@ -74,19 +68,28 @@ public class Jsr303DemoApplicationTests {
     }
 
     @Test
-    public void methodValidate() {
-        doReturn(null)
-                .when(mockUserService)
-                .updatePassword(anyString(), anyString());
-        userService.updatePassword("abcd", null);
-    }
-
-    @Test
     public void restTemplate() {
         ResponseEntity<String> exchange = restTemplate
                 .exchange(RequestEntity.post(URI.create("https://www.baidu.com"))
                         .build(), String.class);
         System.out.println(exchange.getBody());
     }
-}
 
+    public static void main(String[] args) throws InitializationError {
+
+        JUnitCore jUnitCore = new JUnitCore();
+        jUnitCore.addListener(new RunListener(){
+            @Override
+            public void testRunFinished(Result result) throws Exception {
+                System.out.println("测试完毕！");
+            }
+
+            @Override
+            public void testStarted(Description description) throws Exception {
+                System.out.println("测试开始！");
+            }
+        });
+        jUnitCore.run(new SpringRunner(Jsr303DemoApplicationTests.class));
+
+    }
+}

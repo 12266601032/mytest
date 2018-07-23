@@ -24,7 +24,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.ok(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
-        mockUserService.updatePassword(null, null);
+        System.out.println(user);
         return ResponseEntity.ok("ok");
     }
 
@@ -82,6 +82,14 @@ public class UserController {
 
         public void setPassword(String password) {
             this.password = password;
+        }
+
+        @Override
+        public String toString() {
+            return "User{" +
+                    "username='" + username + '\'' +
+                    ", password='" + password + '\'' +
+                    '}';
         }
     }
 
