@@ -9,15 +9,14 @@ public abstract class AbstractIntervalMillisValidator<T> implements ConstraintVa
 
     @Override
     public void initialize(IntervalMillis constraintAnnotation) {
-
         this.millis = constraintAnnotation.millis();
 
     }
 
     @Override
     public boolean isValid(T value, ConstraintValidatorContext context) {
-        if (value != null && millis >= 0) {
-            return getCurrentInterval(value) <= millis;
+        if (value != null) {
+            return Math.abs(getCurrentInterval(value)) <= millis;
         }
         return true;
     }
