@@ -1,0 +1,34 @@
+:encoding: utf-8
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:sectlinks:
+
+接口文档
+====
+Joe Bloggs <jbloggs@mymail.com>
+$Id: mydoc.txt,v 1.5 2009/05/17 17:58:44 jbloggs Exp $
+
+= 实例
+
+== curl脚本
+include::{snippets}/index/curl-request.adoc[]
+== 请求信息
+include::{snippets}/index/http-request.adoc[]
+== 响应信息
+include::{snippets}/index/http-response.adoc[]
+== http脚本
+include::{snippets}/index/httpie-request.adoc[]
+== 请求体
+include::{snippets}/index/request-body.adoc[]
+== 响应体
+include::{snippets}/index/response-body.adoc[]
+== 请求头
+include::{snippets}/index/request-headers.adoc[]
+== 响应头
+include::{snippets}/index/response-headers.adoc[]
+
+
+
+
