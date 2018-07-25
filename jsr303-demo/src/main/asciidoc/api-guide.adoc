@@ -8,7 +8,9 @@
 接口文档
 ====
 Joe Bloggs <jbloggs@mymail.com>
-$Id: mydoc.txt,v 1.5 2009/05/17 17:58:44 jbloggs Exp $
+$Id: api-guide.adoc,v 1.5 2009/05/17 17:58:44 jbloggs Exp $
+
+#hashes around text#
 
 = 实例
 
@@ -28,7 +30,5 @@ include::{snippets}/index/response-body.adoc[]
 include::{snippets}/index/request-headers.adoc[]
 == 响应头
 include::{snippets}/index/response-headers.adoc[]
-
-
 
 
