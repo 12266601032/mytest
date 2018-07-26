@@ -8,7 +8,6 @@
 接口文档
 ====
 Joe Bloggs <jbloggs@mymail.com>
-$Id: api-guide.adoc,v 1.5 2009/05/17 17:58:44 jbloggs Exp $
 
 #hashes around text#
 

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.*;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -28,6 +25,14 @@ public class UserController {
         return ResponseEntity.ok("ok");
     }
 
+    @GetMapping("/user/{id:\\d+}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+        User user = new User();
+        user.setUsername("abc");
+        user.setPassword("bcd");
+        return ResponseEntity.ok(user);
+    }
+
 
     @InitBinder
     public void initRegisterBinder(DataBinder binder) {
@@ -40,7 +45,7 @@ public class UserController {
                 String username = ((User) target).getUsername();
                 ValidationUtils.rejectIfEmpty(errors, "username", "222");
                 if(!username.startsWith("xx")){
-                    errors.reject("5590", "必须以xx开头");
+                    errors.reject("5590", "必须以xx开头http://www.baidu.com");
                 }
             }
         });
