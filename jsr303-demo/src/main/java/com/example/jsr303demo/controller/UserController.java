@@ -16,7 +16,7 @@ public class UserController {
     @Autowired
     MockUserService mockUserService;
 
-    @RequestMapping(name = "/user", method = RequestMethod.POST)
+    @RequestMapping(path = "/user", method = RequestMethod.POST)
     public ResponseEntity<String> register(@Validated({GroupA.class}) User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.ok(bindingResult.getAllErrors().get(0).getDefaultMessage());
@@ -25,9 +25,8 @@ public class UserController {
         return ResponseEntity.ok("ok");
     }
 
-    @GetMapping("/user/{id:\\d+}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
-        User user = new User();
+    @PutMapping("/user/{id:\\d+}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id,@RequestBody User user) {
         user.setUsername("abc");
         user.setPassword("bcd");
         return ResponseEntity.ok(user);
@@ -45,7 +44,7 @@ public class UserController {
                 String username = ((User) target).getUsername();
                 ValidationUtils.rejectIfEmpty(errors, "username", "222");
                 if(!username.startsWith("xx")){
-                    errors.reject("5590", "必须以xx开头http://www.baidu.com");
+                    errors.reject("5590", "必须以xx开头");
                 }
             }
         });
