@@ -4,17 +4,15 @@ import com.example.jsr303demo.utils.PrintUtils;
 import org.assertj.core.util.Lists;
 import org.hibernate.validator.constraints.Length;
 import org.junit.Test;
-import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.MutablePropertyValues;
-import org.springframework.core.convert.ConversionService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.support.DefaultFormattingConversionService;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
@@ -28,8 +26,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.executable.ExecutableValidator;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -98,29 +94,32 @@ public class BeanValidationTest {
     }
 
     @Test
+    @Bean
     public void formattingConversionServiceDemo() throws NoSuchFieldException {
         DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
-        MoneyObject bean = new MoneyObject(BigDecimal.ZERO, new Date());
+        FormatFields bean = new FormatFields(BigDecimal.ZERO, new Date());
         BeanWrapperImpl beanWrapper = new BeanWrapperImpl(bean);
         for (PropertyDescriptor propertyDescriptor : beanWrapper.getPropertyDescriptors()) {
             if ("class".equals(propertyDescriptor.getName())) {
                 continue;
             }
-            Field field = MoneyObject.class.getDeclaredField(propertyDescriptor.getName());
+            Field field = FormatFields.class.getDeclaredField(propertyDescriptor.getName());
             Object value = beanWrapper.getPropertyValue(propertyDescriptor.getName());
-            String result = (String) conversionService.convert(value, new TypeDescriptor(field), TypeDescriptor.valueOf(String.class));
-            System.out.println(result);
+            if(conversionService.canConvert(new TypeDescriptor(field), TypeDescriptor.valueOf(String.class))){
+                String result = (String) conversionService.convert(value, new TypeDescriptor(field), TypeDescriptor.valueOf(String.class));
+                System.out.println(result);
+            }
         }
     }
 
-    class MoneyObject {
+    class FormatFields {
 
         @NumberFormat(pattern = "0.00")
         private BigDecimal money;
         @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         private Date date;
 
-        public MoneyObject(BigDecimal money, Date date) {
+        public FormatFields(BigDecimal money, Date date) {
             this.money = money;
             this.date = date;
         }
