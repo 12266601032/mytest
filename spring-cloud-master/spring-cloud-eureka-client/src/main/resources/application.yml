@@ -6,12 +6,22 @@ server:
   port: 8763
 spring:
   application:
-    name: service-hi
+    name: service-client
   cloud:
     config:
       label: master
       profile: dev
       uri: http://localhost:8888/
+    stream:
+      bindings:
+        input:
+          destination: queue1
+        output:
+          destination: queue1
+      # 全局设置默认Binder,在rabbit为spring.binders中配置的
+      default-binder: rabbit
+
+
   rabbitmq:
     host: localhost
     port: 5672

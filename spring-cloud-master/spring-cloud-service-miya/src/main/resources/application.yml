@@ -1,0 +1,12 @@
+server:
+  port: 8989
+spring:
+  zipkin:
+    enabled: true
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      # 默认值为0.1f，现在为了测试设置100%采集
+      percentage: 1
+  application:
+    name: service-miya

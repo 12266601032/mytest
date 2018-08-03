@@ -19,6 +19,9 @@
         <module>spring-clound-service-feign</module>
         <module>spring-cloud-service-zuul</module>
         <module>spring-cloud-config-server</module>
+        <module>spring-cloud-server-zipkin</module>
+        <module>spring-cloud-service-hi</module>
+        <module>spring-cloud-service-miya</module>
     </modules>
 
     <properties>

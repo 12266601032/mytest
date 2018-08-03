@@ -1,0 +1,13 @@
+server:
+  port: 8988
+spring:
+  zipkin:
+    enabled: true
+    # zipkkin dashboard的地址：通过真实IP地址访问
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      # 默认值为0.1f，现在为了测试设置100%采集
+      percentage: 1
+  application:
+    name: service-hi
